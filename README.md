@@ -20,7 +20,7 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 ##  2. Yêu Cầu Kỹ Thuật & Chỉ Tiêu Đánh Giá
 
 - **Hệ số công suất (Power Factor - PF)**: $\approx 1$ ($PF > 0.99$).
-- **Độ méo dạng sóng hài tổng (THD)**: $THD < 5\%$ (Đạt tiêu chuẩn IEEE 519).
+- **Độ méo dạng sóng hài tổng (THD)**: $THD < 5\%$ (IEEE 519) hoặc $THD < 2.5\%$ (IEEE 1547/IEC 61727).
 - **Điện áp DC ra**: Ổn định ở $400\text{ VDC}$, độ nhấp nhô điện áp (voltage ripple) nhỏ trong giới hạn cho phép.
 - **Tính vững chãi**: Hệ thống hoạt động ổn định khi điện áp lưới biến động $\pm 10\%$ và tải thay đổi đột ngột ($100\% \leftrightarrow 50\%$).
 
@@ -61,7 +61,6 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 
 ### Phần 5: Rời rạc hóa & Điều khiển Số (Mở rộng)
 - Rời rạc hóa bộ điều khiển PI từ miền $s$ sang miền $z$ (phương pháp Tustin/Euler).
-- Xây dựng thuật toán điều khiển số cho vi điều khiển (DSP/Microcontroller).
 
 ---
 
@@ -74,7 +73,7 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 
 ---
 
-## 🛠 5. Công Cụ Sử Dụng
-- **Mô phỏng**: MATLAB/Simulink, PSIM.
+##  5. Công Cụ Sử Dụng
+- **Mô phỏng**: MATLAB/Simulink.
 - **Tính toán & Đồ thị**: MATLAB Control System Toolbox / Python.
 - **Soạn thảo**: LaTeX / MS Word / Markdown.
