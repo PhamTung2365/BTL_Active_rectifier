@@ -1,10 +1,10 @@
 # Thiết Kế Hệ Thống Điều Khiển Chỉnh Lưu Tích Cực 1 Pha (Active PFC Boost Converter)
 
-Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khiển bộ biến đổi PFC kiểu Boost 1 pha hòa lưới, dựa trên bài giảng và tài liệu môn Điều khiển Điện tử công suất (HUST).
+Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khiển bộ biến đổi PFC kiểu Boost 1 pha hòa lưới, dựa trên bài giảng và tài liệu môn Điều khiển Điện tử công suất.
 
 ---
 
-## 📌 1. Thông Số Thiết Kế Hệ Thống
+##  1. Thông Số Thiết Kế Hệ Thống
 
 | Thông số | Ký hiệu | Giá trị định mức |
 | :--- | :--- | :--- |
@@ -17,7 +17,7 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 
 ---
 
-## 🎯 2. Yêu Cầu Kỹ Thuật & Chỉ Tiêu Đánh Giá
+##  2. Yêu Cầu Kỹ Thuật & Chỉ Tiêu Đánh Giá
 
 - **Hệ số công suất (Power Factor - PF)**: $\approx 1$ ($PF > 0.99$).
 - **Độ méo dạng sóng hài tổng (THD)**: $THD < 5\%$ (Đạt tiêu chuẩn IEEE 519).
@@ -26,7 +26,7 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 
 ---
 
-## 📂 3. Bố Cục Nội Dung Chi Tiết
+##  3. Bố Cục Nội Dung Chi Tiết
 
 ### Phần 1: Tổng quan & Thông số Mạch lực
 - Tổng quan về bài toán hiệu chỉnh hệ số công suất (PFC) và bộ biến đổi Boost.
@@ -65,7 +65,7 @@ Dự án thiết kế, mô hình hóa và mô phỏng hệ thống điều khi�
 
 ---
 
-## 👥 4. Phân Công Công Việc (Nhóm 2 Thành viên)
+##  4. Phân Công Công Việc (Nhóm 2 Thành viên)
 
 | Thành viên | Nhiệm vụ chính | Chi tiết công việc & Sản phẩm bàn giao |
 | :--- | :--- | :--- |
