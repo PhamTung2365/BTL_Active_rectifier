@@ -5,13 +5,14 @@
 
 | Thông số | Ký hiệu | Giá trị tham khảo |
 | :--- | :--- | :--- |
-| Điện áp lưới đầu vào | $U_s$ | $220\text{ VAC} \pm 10\% / 50\text{ Hz} \pm 1\%$ |
+| Điện áp lưới đầu vào | $U$ | $220\text{ VAC} \pm 10\%$ |
+| Tần số lưới | $f$ | 50 Hz ± 1% |
 | Công suất thiết kế | $P$ | $2\text{ kVA}$ |
 | Điện cảm cuộn lọc | $L$ | $5\text{ mH}$ (nội trở $r_L = 0.1\,\Omega$) |
 | Tụ điện Bus DC | $C_{dc}$ | $2200\,\mu\text{F}$ |
 | Điện áp DC đầu ra | $V_{dc}$ | $400\text{ VDC}$ |
 
-> Tần số đóng cắt $f_s$ không được cho sẵn trong đề — cần tự lựa chọn và biện luận (thường $10$–$50$ kHz) dựa trên loại van bán dẫn, tổn hao đóng cắt và đáp ứng băng thông vòng dòng điện mong muốn.
+> Tần số đóng cắt $f_s$ không được cho sẵn trong đề — cần tự lựa chọn và biện luận (thường $10-50$ kHz) dựa trên loại van bán dẫn, tổn hao đóng cắt và đáp ứng băng thông vòng dòng điện mong muốn.
 
 ---
 
