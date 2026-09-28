@@ -1,7 +1,7 @@
 # Thiết Kế Hệ Thống Điều Khiển Chỉnh Lưu Tích Cực 1 Pha
+---
 
-
-## 1. Tham Số Thiết Kế Tham Khảo
+##  1. Tham Số Thiết Kế Tham Khảo
 
 | Thông số | Ký hiệu | Giá trị tham khảo |
 | :--- | :--- | :--- |
@@ -15,10 +15,10 @@
 
 ---
 
-## 2. Nội Dung Thiết Kế
+##  2. Nội Dung Thiết Kế (theo đề bài)
 
 1. **Mô hình hóa** hệ thống chỉnh lưu tích cực 1 pha.
-2. **Cấu trúc điều khiển** .
+2. **Cấu trúc điều khiển** (sơ đồ khối tổng thể).
 3. **Cách thức tính toán bộ điều chỉnh** dòng điện và điện áp một chiều.
 4. **Mô phỏng cấu trúc điều khiển** để kiểm chứng.
 
@@ -59,21 +59,9 @@ $$K_{p,PLL} = \frac{2\zeta\,\omega_{n,PLL}}{V_m}, \qquad K_{i,PLL} = \frac{\omeg
 - Đánh giá chế độ xác lập: dạng sóng $V_{dc}$, dòng điện lưới $i_s$ hình sin đồng pha với $u_s$.
 - Đánh giá chế độ quá độ: biến động điện áp lưới trong dải $\pm 10\%$, thay đổi tải đột ngột.
 
-### Phần 5: Rời rạc hóa & Điều khiển Số (Mở rộng)
-- Rời rạc hóa bộ điều khiển PI từ miền $s$ sang miền $z$ (phương pháp Tustin/Euler).
-
 ---
 
-##  4. Phân Công Công Việc (Nhóm 2 Thành viên)
-
-| Thành viên | Nhiệm vụ chính | Chi tiết công việc & Sản phẩm bàn giao |
-| :--- | :--- | :--- |
-| **Thành viên 1** | **Mô hình hóa toán học & Tính toán bộ điều khiển** | - Tổng quan bài toán & Thông số mạch lực (Phần 1).<br>- Xây dựng mô hình tín hiệu nhỏ cho bộ Boost PFC (Phần 3.1).<br>- Tính toán tham số bộ điều chỉnh PI Dòng điện $R_i(s)$ & Điện áp $R_v(s)$ bằng phương pháp Bode (Phần 3.2, 3.3).<br>- Soạn thảo báo cáo phần Lý thuyết & Tính toán toán học. |
-| **Thành viên 2** | **Cấu trúc điều khiển & Mô phỏng kiểm chứng** | - Thiết lập sơ đồ khối cấu trúc điều khiển, khâu Feedforward & Đồng pha (Phần 2).<br>- Xây dựng mô hình mô phỏng trên MATLAB/Simulink / PSIM (Phần 4.1).<br>- Chạy mô phỏng quá độ (thay đổi áp lưới, đột biến tải), phân tích phổ FFT/THD & đo hệ số PF (Phần 4.2, 4.3).<br>- (Mở rộng) Rời rạc hóa bộ điều khiển sang miền $z$ (Phần 5).<br>- Tổng hợp file mô phỏng & Đồ thị kết quả. |
-
----
-
-##  5. Công Cụ Sử Dụng
-- **Mô phỏng**: MATLAB/Simulink.
-- **Tính toán & Đồ thị**: MATLAB Control System Toolbox / Python.
-- **Soạn thảo**: LaTeX / MS Word / Markdown.
+## 4. Công Cụ Sử Dụng
+- **Mô phỏng**: MATLAB/Simulink hoặc PSIM.
+- **Tính toán & vẽ Bode**: MATLAB Control System Toolbox / Python.
+- **Soạn thảo báo cáo**: LaTeX / MS Word / Markdown.
