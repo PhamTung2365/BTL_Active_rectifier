@@ -1,0 +1,83 @@
+========================================================================
+1. ROI RAC HOA DOI TUONG  (Ts = 50 us)
+========================================================================
+G_iv(s) = 1/(Ls + rL)
+  Tustin : b = [0.004997501249, 0.004997501249], a = [1, -0.9990004998]
+           = 4.997501e-03 (z+1) / (z - 0.9990005)
+  ZOH    : b = [0.009995001666], a = [1, -0.9990004998]
+           = 9.995002e-03 / (z - 0.9990005)
+G_vi(s) = Kv/s
+  Tustin : b = [0.004419417382, 0.004419417382], a = [1, -1]  (= Kv Ts/2 (z+1)/(z-1))
+  ZOH    : b = [0.008838834765], a = [1, -1]  (= Kv Ts/(z-1))
+G_vi,R(s) (tai R) Tustin: b = [0.004418162223, 0.004418162223], a = [1, -0.9994319796]
+  f =    50 Hz: pha lien tuc*e^(-1.5sTs) =  -87.71, Tustin*z^-1 =  -87.26, ZOH*z^-1 =  -87.71 deg; |.| = 0.63533 / 0.63532 / 0.63534
+  f =  1000 Hz: pha lien tuc*e^(-1.5sTs) = -116.82, Tustin*z^-1 = -107.82, ZOH*z^-1 = -116.82 deg; |.| = 0.03183 / 0.03157 / 0.03196
+  f =  5000 Hz: pha lien tuc*e^(-1.5sTs) =  135.04, Tustin*z^-1 = -179.97, ZOH*z^-1 =  135.03 deg; |.| = 0.00637 / 0.00500 / 0.00707
+
+========================================================================
+2. ROI RAC HOA BO DIEU KHIEN THEO TUSTIN
+========================================================================
+K = 2/Ts = 40000.0000;  K(prewarp 50 Hz) = 39999.1775;  K(prewarp 100 Hz) = 39996.7101
+PR ly tuong (prewarp 50 Hz)         : b = [31.64089641, -62.72753751, 31.0943806]
+                                      a = [1, -1.999753265, 1]
+PR khong ly tuong (prewarp 50 Hz)   : b = [31.6408535, -62.71768625, 31.08457103]
+                                      a = [1, -1.999439207, 0.999685903]
+PR khong ly tuong (KHONG prewarp)   : b = [31.64084788, -62.71768677, 31.08457685]
+                                      a = [1, -1.999439223, 0.9996859094]
+PI dien ap                          : b = [0.5031372271, -0.5020206088]
+                                      a = [1, -1]
+Notch 100 Hz (prewarp 100 Hz)       : b = [0.9845374654, -1.968103311, 0.9845374654]
+                                      a = [1, -1.968103311, 0.9690749309]
+SOGI D(z) (prewarp 50 Hz)           : b = [0.01098474575, 0, -0.01098474575]
+                                      a = [1, -1.977786484, 0.9780305085]
+SOGI Q(z) (prewarp 50 Hz)           : b = [8.627576539e-05, 0.0001725515308, 8.627576539e-05]
+                                      a = [1, -1.977786484, 0.9780305085]
+PI PLL                              : b = [0.5723812912, -0.5698435224]
+                                      a = [1, -1]
+  PR                   tai 50 Hz: lien tuc  1771.0530 /   0.00 deg | so  1771.0530 /  -0.00 deg
+  PR (khong prewarp)   tai 50 Hz: lien tuc  1771.0530 /   0.00 deg | so  1771.0493 /  -0.12 deg
+  Notch                tai 100 Hz: lien tuc |.| = 0.0e+00 | so |.| = 1.1e-13 (diem khong)
+  SOGI-D               tai 50 Hz: lien tuc     1.0000 /   0.00 deg | so     1.0000 /  -0.00 deg
+  SOGI-Q               tai 50 Hz: lien tuc     1.0000 / -90.00 deg | so     1.0000 / -90.00 deg
+  SOGI co dinh w0: pha D(j2pi49.5) = +0.814 deg
+  SOGI co dinh w0: pha D(j2pi50.5) = -0.806 deg
+  Cong huong bac 1: khong prewarp -> 49.9990 Hz (fs=20kHz), 49.984 Hz (neu fs=5kHz)
+  Cong huong bac 3: khong prewarp -> 149.9723 Hz (fs=20kHz), 149.558 Hz (neu fs=5kHz)
+  Cong huong bac 5: khong prewarp -> 249.8716 Hz (fs=20kHz), 247.974 Hz (neu fs=5kHz)
+  Cong huong bac 7: khong prewarp -> 349.6480 Hz (fs=20kHz), 344.516 Hz (neu fs=5kHz)
+  |cuc PR(z)| = [0.99984294 0.99984294], goc = [ 0.99995001 -0.99995001] x w0Ts
+
+========================================================================
+3. KIEM TRA ON DINH TRONG MIEN z
+========================================================================
+Vong dong (PR khong ly tuong):
+  lien tuc, khong tre               : fc =  1000.1 Hz, PM =  87.0 deg, GM =   inf dB
+  lien tuc, tre 1.5Ts               : fc =  1000.1 Hz, PM =  60.0 deg, GM =  10.4 dB
+  so: PR_Tustin * G_ZOH * z^-1      : fc =  1004.2 Hz, PM =  59.9 deg, GM =  10.0 dB
+  so: PR_Tustin * G_Tustin * z^-1   : fc =   991.9 Hz, PM =  69.1 deg, GM =  16.0 dB
+  Cuc kin (ZOH): [0.990595+0.013068j 0.990595-0.013068j 0.508625+0.240548j
+ 0.508625-0.240548j]
+  max|z| = 0.990681  -> ON DINH
+Vong ap:
+  lien tuc PI*Notch*Kv/s            : fc =  15.37 Hz, PM =  56.3 deg, GM =  39.4 dB
+  so PI_z*Notch_z*Ti_z*Gvi_ZOH      : fc =  15.28 Hz, PM =  55.4 deg, GM =  32.6 dB
+  so, tai R 80 Ohm                  : fc =  15.19 Hz, PM =  62.1 deg, GM =  33.9 dB
+  max|z| cuc kin vong ap = 0.9975630
+Vong PLL (tuyen tinh hoa):
+  lien tuc                          : fc =  31.07 Hz, PM =  65.5 deg, GM =   inf dB
+  so (PI Tustin + NCO Euler)        : fc =  31.07 Hz, PM =  65.2 deg, GM =   inf dB
+
+========================================================================
+4. MO PHONG SO SANH (mo hinh trung binh; lien tuc = nguyen ly, so = Tustin + ZOH + z^-1)
+========================================================================
+che do                     | lien tuc: Vdc  Vpp  THD%  phi  PF      | so: Vdc  Vpp  THD%  phi  PF
+50% tai, 220 V, 50 Hz      |  400.0  3.62  0.02  0.01 1.0000   |  400.0  3.62  0.02 -0.01 1.0000
+100% tai, 220 V            |  400.0  7.33  0.03  0.01 1.0000   |  400.0  7.33  0.03 -0.02 1.0000
+100% tai, 198 V            |  400.0  7.29  0.02  0.01 1.0000   |  400.0  7.29  0.03 -0.01 1.0000
+100% tai, 242 V            |  400.1  7.59  0.05 -0.01 1.0000   |  400.1  7.59  0.06 -0.04 1.0000
+100% tai, 242 V, 50.5 Hz   |  400.0  7.16  0.20 -0.84 0.9999   |  400.0  7.15  0.22 -0.86 0.9999
+  lien tuc: nhay tai -> Vdc min =  388.3 V (sut 11.7 V); khoi dong: Vdc max =  406.3 V, |i|max =  20.2 A
+  so      : nhay tai -> Vdc min =  388.3 V (sut 11.7 V); khoi dong: Vdc max =  406.3 V, |i|max =  20.2 A
+  max|Vdc_lien tuc - Vdc_so| (t>0.3s) = 0.01 V; max|i_lien tuc - i_so| = 0.042 A
+
+Da luu hinh vao C:\Users\Inguy\OneDrive\Desktop\Tài liệu học tập\EE4331-20261\Active Rectifier\design\figures

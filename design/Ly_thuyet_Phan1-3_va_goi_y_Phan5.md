@@ -1,6 +1,6 @@
 # Thiết kế hệ thống điều khiển chỉnh lưu tích cực 1 pha (EE4331 – Bài 26)
 
-> Nội dung Phần 1–3 (lý thuyết, tính toán) và gợi ý Phần 5 (điều khiển số – Tustin).
+> Nội dung Phần 1–3 (lý thuyết, tính toán). Phần 5 (điều khiển số – Tustin) ở [Phan5_Dieu_khien_so_Tustin.md](Phan5_Dieu_khien_so_Tustin.md).
 > Mọi con số trong tài liệu đều được tính bởi [design_calc.py](design_calc.py) (kết quả in ở [design_output.txt](design_output.txt)); tham số cho Simulink nằm trong [params_active_rectifier.m](params_active_rectifier.m).
 > Tài liệu tham chiếu: bài giảng *"Thiết kế điều khiển tuyến tính cho bộ biến đổi nghịch lưu nguồn áp một pha"* – PGS.TS Vũ Hoàng Phương (gọi tắt là **[BG]**, số trang ghi theo slide).
 
@@ -324,33 +324,16 @@ Nhảy tải 50% → 100%: $v_{dc}$ sụt 11,7 V (2,9%) và hồi phục sau ~0,
 
 ---
 
-## PHẦN 5 (GỢI Ý). ĐIỀU KHIỂN SỐ – RỜI RẠC HÓA TUSTIN
+## PHẦN 5. ĐIỀU KHIỂN SỐ – RỜI RẠC HÓA TUSTIN
 
-Theo đề ("thiết kế cấu trúc điều khiển định hướng thiết kế tương tự hoặc số, mô phỏng kiểm chứng và so sánh với kết quả mô phỏng nguyên lý"), hướng đi phù hợp là **thiết kế gián tiếp (emulation)**: giữ nguyên các bộ điều chỉnh liên tục ở Phần 3, rời rạc hóa bằng Tustin, rồi kiểm chứng.
-
-### 5.1 Nội dung nên trình bày
-
-1. **Cấu trúc hệ số:** ADC lấy mẫu $i_s, v_{dc}, e_n$ đồng bộ với **đỉnh/đáy sóng mang** (lấy mẫu đúng giá trị trung bình, tránh aliasing gợn đóng cắt), $T_s$ = 50 µs; cập nhật PWM ở chu kỳ kế tiếp ⇒ trễ $z^{-1}$ + ZOH. Có thể chạy vòng áp chậm hơn (ví dụ 1–2 kHz, đa tốc độ).
-2. **Phép biến đổi Tustin** (song tuyến): $s\leftarrow\dfrac{2}{T_s}\dfrac{z-1}{z+1}$. Ưu điểm: ánh xạ nửa trái mặt phẳng $s$ vào trong đường tròn đơn vị (giữ ổn định), không có trễ thêm. Nhược: méo tần số $\omega_d=\frac{2}{T_s}\arctan\frac{\omega_aT_s}{2}$ ⇒ dùng **prewarping** tại tần số quan trọng: $s\leftarrow\dfrac{\omega_0}{\tan(\omega_0T_s/2)}\dfrac{z-1}{z+1}$.
-3. **Rời rạc hóa từng khối** (đã tính sẵn với $T_s$ = 50 µs):
-   - *Khâu cộng hưởng của PR* (prewarp tại 50 Hz, $K=\omega_0/\tan(\omega_0T_s/2)$ = 39 999,2):
-     $$R(z)=\frac{K_rK(1-z^{-2})}{(K^2+2\omega_{rc}K+\omega_0^2)+2(\omega_0^2-K^2)z^{-1}+(K^2-2\omega_{rc}K+\omega_0^2)z^{-2}}
-     =\frac{0{,}27322\,(1-z^{-2})}{1-1{,}999439\,z^{-1}+0{,}999686\,z^{-2}}$$
-   - *PI điện áp:* $u[k]=u[k-1]+b_0e[k]+b_1e[k-1]$, $b_0=K_p+K_iT_s/2=0{,}50316$, $b_1=-K_p+K_iT_s/2=-0{,}50204$ (thêm kẹp tích phân).
-   - *Notch 100 Hz* (prewarp tại 100 Hz): $\dfrac{0{,}98454-1{,}96810z^{-1}+0{,}98454z^{-2}}{1-1{,}96810z^{-1}+0{,}96907z^{-2}}$.
-   - *SOGI, tích phân của PLL:* Tustin hoặc Euler lùi; lưu ý vòng đại số trong SOGI khi dùng Tustin (có thể dùng tích phân bậc 3 của Ciobotaru).
-   - Trong MATLAB: `c2d(G, Ts, c2dOptions('Method','tustin','PrewarpFrequency',w0))`.
-4. **Kiểm tra ổn định trong miền $z$:** đối tượng rời rạc hóa ZOH + trễ tính toán
-   $$G_{iv}(z)=z^{-1}\cdot\frac{(1-e^{-r_LT_s/L})/r_L}{z-e^{-r_LT_s/L}}$$
-   Kết quả kiểm tra nhanh (đã chạy): PR Tustin (prewarp) × $G_{iv}(z)$ cho $f_c$ ≈ 1004 Hz, **PM = 59,9°, GM = 10,0 dB** — khớp với thiết kế liên tục có tính $T_d$ = 1,5 $T_s$ ở 3.4. Đây là điểm đáng trình bày: việc đưa trễ vào ngay từ Phần 3 giúp bộ điều khiển số giữ nguyên dự trữ pha.
-5. **Minh họa ảnh hưởng của prewarping:** không prewarp, đỉnh cộng hưởng dịch từ 50 Hz → 49,999 Hz (không đáng kể ở 20 kHz) nhưng với bộ bù hài 7 (350 Hz) → 349,65 Hz; nếu hạ $f_s$ xuống 5 kHz sai lệch tăng 16 lần ⇒ bàn luận khi nào cần prewarp.
-6. **So sánh** mô phỏng nguyên lý (liên tục, Phần 4) với số (Tustin, có ZOH/trễ, có thể thêm lượng tử hóa ADC 12 bit): dạng sóng $v_{dc}$, $i_s$; THD dòng; PF; độ sụt áp khi nhảy tải; đáp ứng khi lưới ±10%, tần số ±1%. Có thể so sánh thêm Tustin với Euler tiến/ZOH/impulse-invariant cho khâu cộng hưởng.
-
-### 5.2 Tài liệu tham khảo gợi ý cho Phần 5
-- L. Corradini, D. Maksimović, P. Mattavelli, R. Zane, *Digital Control of High-Frequency Switched-Mode Power Converters*, Wiley, 2015 (tài liệu 1 của đề) – chương về mô hình rời rạc và thiết kế gián tiếp.
-- A. G. Yepes và cộng sự, "Effects of Discretization Methods on the Performance of Resonant Controllers," *IEEE Trans. Power Electronics*, vol. 25, no. 7, 2010 – so sánh các phương pháp rời rạc hóa bộ PR.
-- R. Teodorescu, M. Liserre, P. Rodríguez, *Grid Converters for Photovoltaic and Wind Power Systems*, Wiley, 2011 – PR, SOGI-PLL.
-- M. Ciobotaru, R. Teodorescu, F. Blaabjerg, "A New Single-Phase PLL Structure Based on Second Order Generalized Integrator," *IEEE PESC*, 2006.
+Đã hoàn thiện trong tài liệu riêng **[Phan5_Dieu_khien_so_Tustin.md](Phan5_Dieu_khien_so_Tustin.md)**, gồm:
+- giản đồ thời gian lấy mẫu–tính toán–cập nhật PWM;
+- phép biến đổi Tustin và prewarping;
+- rời rạc hóa đối tượng $G_{iv}$, $G_{vi}$ (Tustin, đối chiếu ZOH);
+- rời rạc hóa PR, PI áp, Notch, SOGI, PI-PLL, NCO, kèm hệ số và phương trình sai phân;
+- kiểm tra ổn định miền $z$;
+- mô phỏng so sánh liên tục ↔ số;
+- hướng dẫn cài đặt trong Simulink.
 
 ---
 

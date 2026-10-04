@@ -1,0 +1,72 @@
+======================================================================
+PHAN 1 - BAI TOAN THIET KE
+======================================================================
+Vm (dinh) danh dinh / min / max   = 311.1 / 280.0 / 342.2 V
+Dong luoi danh dinh I = 9.09 A rms, dinh 12.86 A
+Dong luoi lon nhat (U=198V) = 10.10 A rms, dinh 14.28 A
+Tai tuong duong R = 80.0 Ohm, I_load = 5.00 A
+fs = 20 kHz: dap mach dong unipolar = 0.500 A pp (3.9% dinh), bipolar = 2.00 A pp
+Gon song 100Hz tren Vdc = 7.23 V pp (1.81%)
+Us dinh can thiet (242V, 50.5Hz, 2kW) = 341.6 V -> m_max = 0.854, goc lech -3.11 deg
+Us dinh can thiet (198V, 49.5Hz, 2kW) = 279.5 V -> m = 0.699
+Ung suat van: V = 403.6 V, I_dinh = 14.53 A
+Ton hao dong tren rL = 10.2 W (U=198V)
+
+======================================================================
+PHAN 3.1 - VONG DONG DIEN (PR)
+======================================================================
+Td = 1.5 Ts = 75 us, fc = 1000 Hz, PM mong muon = 60 deg
+|G_dt(jwc)| = 0.03183, goc G_iv = -89.82 deg, goc tre = -27.00 deg
+A_c (pha cua PR tai wc) = -3.18 deg
+Kp = 31.368  Ohm,  Kr = 10930.8  Ohm/s
+Hang so thoi gian hoi tu sai lech bien do tai 50 Hz tau = 2Kp/Kr = 5.7 ms
+  khong tre (mo hinh nguyen ly)         : fc =  1000.0 Hz, PM =  87.0 deg, GM =   inf dB
+  co tre 1.5Ts (thuc thi so)            : fc =  1000.0 Hz, PM =  60.0 deg, GM =  10.4 dB
+  PR khong ly tuong wrc=pi, co tre      : fc =  1000.1 Hz, PM =  60.0 deg, GM =  10.4 dB
+  |L(j2pi49.5)| PR ly tuong = 1111, PR khong ly tuong = 802 -> sai lech bien do ~ 0.12%
+  |L(j2pi50.5)| PR ly tuong = 1100, PR khong ly tuong = 790 -> sai lech bien do ~ 0.13%
+  |L(j2pi50)| PR khong ly tuong = 1125; Kr_nonideal (dang slide 18) = Kr/(2wrc) = 1739.7
+  Bang so sanh lua chon PM (co tre):
+    PM=45: Ac=-18.18, Kp= 29.85, Kr=  61441.1, tau=  0.97 ms
+    PM=50: Ac=-13.18, Kp= 30.59, Kr=  44903.2, tau=  1.36 ms
+    PM=60: Ac= -3.18, Kp= 31.37, Kr=  10930.8, tau=  5.74 ms
+    PM=70: Ac=  6.82, Kp= 31.19, Kr= -23373.8, tau= -2.67 ms
+
+======================================================================
+PHAN 3.2 - VONG DIEN AP (PI + NOTCH 100 Hz)
+======================================================================
+Kv = Vm/(2 C Vdc) = 176.78  (V/s)/A
+zeta = 0.707, fn = 10.0 Hz -> Kp_v = 0.5026 A/V, Ki_v = 22.332 A/(V.s)
+Notch: wN = 628.3 rad/s (100 Hz), Q = 1.0
+Tai tro: cuc = 2/(R C) = 11.36 rad/s (1.81 Hz)
+  ly tuong (PI * Kv/s)          : fc =  15.54 Hz, PM =  65.5 deg, GM =   inf dB
+  + notch                       : fc =  15.37 Hz, PM =  56.3 deg, GM =  39.4 dB
+  + notch + vong dong + tai R   : fc =  15.19 Hz, PM =  62.3 deg, GM =  34.9 dB
+  Ti so bang thong vong dong / vong ap = 64
+  |Notch(j2pi99)| = -33.9 dB
+  |Notch(j2pi101)| = -34.0 dB
+  pha notch tai fc_v = -9.05 deg
+  Gioi han Im* = 20.0 A  (dinh dong can thiet lon nhat 14.28 A)
+
+======================================================================
+PHAN 3.3 - SOGI-PLL
+======================================================================
+k_SOGI = 1.4142; bang thong BPF = k w0 = 444.3 rad/s; tau bien do = 2/(k w0) = 4.50 ms
+  hai bac 3: |D| = 0.469, |Q| = 0.156
+  hai bac 5: |D| = 0.283, |Q| = 0.057
+  hai bac 7: |D| = 0.202, |Q| = 0.029
+PLL: zeta = 0.707, fn = 20.0 Hz -> Kp = 0.5711 rad/(s.V), Ki = 50.755 rad/(s^2.V)
+  (neu chuan hoa e_q/Vm: Kp = 177.69, Ki = 15791.4)
+  thoi gian xac lap (2%) ~ 4/(zeta wn) = 45.0 ms
+
+======================================================================
+KIEM TRA SO BO BANG MO HINH TRUNG BINH (averaged, co tre 1.5Ts)
+======================================================================
+  50% tai, 220V   : Vdc TB =  400.0 V, gon pp =  3.62 V, |i - i*|max = 0.003 A
+  100% tai, 220V  : Vdc TB =  400.0 V, gon pp =  7.33 V, |i - i*|max = 0.003 A
+  100% tai, 198V  : Vdc TB =  400.0 V, gon pp =  7.29 V, |i - i*|max = 0.003 A
+  100% tai, 242V  : Vdc TB =  400.0 V, gon pp =  7.27 V, |i - i*|max = 0.004 A
+  Nhay tai 50->100% tai t=0.4s: Vdc min = 388.3 V (sut 11.7 V)
+  THD dong luoi (mo hinh TB, 100% tai) = 0.04%, I1 = 9.13 A rms
+
+Da luu hinh vao: C:\Users\Inguy\OneDrive\Desktop\Tài liệu học tập\EE4331-20261\Active Rectifier\design\figures

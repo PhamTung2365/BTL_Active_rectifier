@@ -1,0 +1,7 @@
+# Tai lieu mon hoc / bai mau (khong dua len repo)
+*.pdf
+slides/
+
+# Python
+__pycache__/
+*.pyc
